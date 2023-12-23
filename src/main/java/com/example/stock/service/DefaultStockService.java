@@ -15,7 +15,7 @@ public class DefaultStockService implements StockService{
 
     @Override
     @Transactional
-    public void decrease(Long id, Long quantity) {
+    public Long decrease(Long id, Long quantity) {
         //Stock 조회
         Stock stock = stockRepository.findById(id)
                 .orElseThrow(IllegalArgumentException::new);
@@ -25,5 +25,7 @@ public class DefaultStockService implements StockService{
 
         //변경된 값 저장
         stockRepository.saveAndFlush(stock);
+
+        return stock.getQuantity();
     }
 }
