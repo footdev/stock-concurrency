@@ -26,12 +26,14 @@ class StockServiceTest {
 
     @BeforeEach
     public void before() {
+        System.out.println("픽스처 생성");
         stockRepository.saveAndFlush(new Stock(1L, 100L));
     }
 
     @AfterEach
     public void after() {
-        stockRepository.deleteAll();;
+        System.out.println("픽스처 삭제");
+        stockRepository.deleteAll();
     }
 
     @Test
@@ -49,6 +51,9 @@ class StockServiceTest {
     @Test
     @DisplayName("100개의 재고 감소 요청이 동시에 들어와 100개의 요청이 실패한다.")
     void decreaseConcurrency() throws InterruptedException {
+        stockRepository.saveAndFlush(new Stock(1L, 100L));
+        Stock stock = stockRepository.findById(1L).orElseThrow();
+        assertThat(stock.getId()).isEqualTo(1L);
         // given
         int threadCnt = 100;
         ExecutorService executorService = Executors.newFixedThreadPool(32);
@@ -67,7 +72,7 @@ class StockServiceTest {
         latch.await();
 
         // then
-        Stock stock = stockRepository.findById(1L).orElseThrow();
-        assertThat(stock.getQuantity()).isZero();
+        stock = stockRepository.findById(1L).orElseThrow();
+        assertThat(stock.getQuantity()).isNotZero();
     }
 }
