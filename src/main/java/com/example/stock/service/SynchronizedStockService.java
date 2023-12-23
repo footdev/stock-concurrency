@@ -16,7 +16,8 @@ public class SynchronizedStockService implements StockService {
     private final StockRepository stockRepository;
 
     @Override
-    public synchronized void decrease(Long id, Long quantity) {
+    @Transactional
+    public synchronized Long decrease(Long id, Long quantity) {
         //Stock 조회
         Stock stock = stockRepository.findById(id)
                 .orElseThrow(IllegalArgumentException::new);
@@ -26,5 +27,7 @@ public class SynchronizedStockService implements StockService {
 
         //변경된 값 저장
         stockRepository.saveAndFlush(stock);
+
+        return stock.getQuantity();
     }
 }
