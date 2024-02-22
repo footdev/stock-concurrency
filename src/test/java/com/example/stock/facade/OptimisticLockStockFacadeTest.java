@@ -38,7 +38,7 @@ class OptimisticLockStockFacadeTest {
     }
     
     @Test
-    @DisplayName("동시적으로 들어오는 재고 감소 요청을 낙관적 락으로 처리한다.")
+    @DisplayName("동시적으로 들어오는 100개의 재고 감소 요청을 낙관적 락으로 처리한다.")
     void decreaseByOptimisticLock() throws InterruptedException {
         // given
         int threadCnt = 100;
