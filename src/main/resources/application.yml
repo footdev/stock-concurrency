@@ -11,7 +11,8 @@ spring:
     username: root
     password: 1234
     hikari:
-      maximum-pool-size: 40
+      maximum-pool-size: 60
+
 logging:
   level:
     org:
