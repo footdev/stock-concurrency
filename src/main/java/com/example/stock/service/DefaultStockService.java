@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class DefaultStockService implements StockService{
+public class DefaultStockService implements StockService {
 
     private final StockRepository stockRepository;
 
