@@ -36,7 +36,7 @@ class LettuceLockStockFacadeTest {
     }
 
     @Test
-    @DisplayName("동시적으로 들어오는 100개의 재고 감소 요청을 네임드 락으로 처리한다.")
+    @DisplayName("동시적으로 들어오는 100개의 재고 감소 요청을 redis lettuce 분산 락으로 처리한다.")
     void decreaseByNamedLock() throws InterruptedException {
         // given
         int threadCnt = 100;
